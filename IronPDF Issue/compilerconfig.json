@@ -1,0 +1,7 @@
+﻿[
+  {
+    "outputFile": "qr-label.css",
+    "inputFile": "qr-label.less",
+    "minify": { "enabled": false }
+  }
+]

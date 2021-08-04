@@ -13,9 +13,9 @@ namespace IronPDF_Issue
 
             if (args.Length == 0)
             {
-                Console.WriteLine("CreateQrPDF output height width fontSize names");
-                Console.WriteLine("  where height & width are in inches, fontSize in points,");
-                Console.WriteLine("  and names is a comma-separated list of names to be QR-encoded.");
+                Console.WriteLine("\nCreateQrPDF output height width fontSize names\n");
+                Console.WriteLine("  where height & width are in inches, fontSize in points, and");
+                Console.WriteLine("  names is a comma-separated list of names to be QR-encoded.");
                 Console.WriteLine("  If any name is 'cjkTest' (case-insensitive), it will be replaced\n"
                                 + "  with a string of Chinese characters.");
                 return;
