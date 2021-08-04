@@ -1,0 +1,41 @@
+﻿.qr-label {
+  position: relative;
+}
+.qr-label > div {
+  background-color: white;
+}
+.qr-label .qr-container {
+  position: relative;
+  width: 100%;
+  padding: 0.125in;
+  margin: 0;
+  box-sizing: content-box;
+}
+.qr-label .qr-container .qr-wrapper {
+  position: relative;
+  width: 100%;
+}
+.qr-label .qr-container .qr-wrapper svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.qr-label .asset-name {
+  position: absolute;
+  left: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 100%;
+  line-height: 1.05;
+  bottom: 0.125in;
+}
+.qr-label .asset-name div {
+  position: static;
+  width: calc(100% - (2 * 0.125in));
+  text-align: center;
+  padding: 0;
+  margin: 0 0.125in 0 0.125in;
+  word-break: keep-all;
+  overflow: hidden;
+}
