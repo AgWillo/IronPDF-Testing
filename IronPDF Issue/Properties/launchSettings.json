@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "IronPDF Issue": {
+      "commandName": "Project",
+      "commandLineArgs": "2 5"
+    }
+  }
+}

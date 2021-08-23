@@ -1,23 +1,32 @@
 ﻿@import "variables.less";
+@page-margin: .125in;
 
 .qr-label {
-    @page-margin: .125in;
-    position: relative;
+
+    @media print {
+        //border: 1px solid brown;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 
     > div {
         background-color: white;
     }
 
     .qr-container {
+        //border: 1px solid brown;
         position: relative;
         width: 100%;
         padding: @page-margin;
         margin: 0;
-        box-sizing: content-box;
+        box-sizing: border-box;
 
         .qr-wrapper {
+            //border: 1px solid forestgreen;
             position: relative;
             width: 100%;
+            box-sizing: border-box;
 
             svg {
                 position: absolute;
@@ -27,24 +36,26 @@
                 height: 100%;
             }
         }
-    }
 
-    .asset-name {
-        position: absolute;
-        left: 0;
-        font-family: @default-printer-font-family;
-        width: 100%;
-        line-height: 1.05;
-        bottom: @page-margin;
+        .asset-name {
+            //border: 1px solid blue;
+            position: absolute;
+            left: 0;
+            font-family: @default-printer-font-family;
+            width: 100%;
+            line-height: 1.05;
+            bottom: @page-margin;
 
-        div {
-            position: static;
-            width: calc(100% - (2 * @page-margin));
-            text-align: center;
-            padding: 0;
-            margin: 0 @page-margin 0 @page-margin;
-            word-break: keep-all;
-            overflow: hidden;
+            div {
+                //border: 1px dashed orange;
+                position: static;
+                width: calc(100% - (2 * @page-margin));
+                text-align: center;
+                padding: 0;
+                margin: 0 @page-margin 0 @page-margin;
+                word-break: keep-all;
+                overflow: hidden;
+            }
         }
     }
 }

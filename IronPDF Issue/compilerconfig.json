@@ -2,6 +2,15 @@
   {
     "outputFile": "qr-label.css",
     "inputFile": "qr-label.less",
-    "minify": { "enabled": false }
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "ironTest.css",
+    "inputFile": "ironTest.less",
+    "minify": {
+      "enabled": false
+    }
   }
 ]

@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Diagnostics;
+using System.Drawing;
 using QRCoder;
 using ECCLevel = QRCoder.QRCodeGenerator.ECCLevel;
 
@@ -18,10 +20,16 @@ namespace IronPDF_Issue
         /// that can encode the supplied text.</param>
         public static string GenerateSvg(string text, int qrVersion = -1)
         {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
             using (var generator = new QRCodeGenerator())
             using (QRCodeData data = generator.CreateQrCode(text, ECCLevel.H, requestedVersion: qrVersion))
             using (var svgQRCode = new SvgQRCode(data))
-                return svgQRCode.GetGraphic(new Size(200, 200), Color.Black, Color.White, true, SvgQRCode.SizingMode.ViewBoxAttribute);
+            {
+                var qrSvg = svgQRCode.GetGraphic(new Size(200, 200), Color.Black, Color.White, true, SvgQRCode.SizingMode.ViewBoxAttribute);
+                Console.WriteLine($"\n Generate QR code: {stopwatch.Elapsed.TotalSeconds:F3}");
+                return qrSvg;
+            }
         }
     }
 }

@@ -13,6 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="ironTest.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="qr-label.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
