@@ -19,10 +19,10 @@ namespace IronPDF_Issue
         {
             // Many CJK characters are words unto themselves; the zero-width word-joiner (aka no-break) character
             // prevents line breaks between words.
-            //const string wordJoiner = "\u2060";
+            const string wordJoiner = "\u2060";
             //const string wordJoiner = "&NoBreak;";
             //const string wordJoiner = "&#8288;";
-            const string wordJoiner = "";
+            //const string wordJoiner = "";
             string noBreakName = string.Join(wordJoiner, name.TextElements());
 
             // Label margin; matches @page-margin variable in qr-label.less
@@ -74,8 +74,8 @@ namespace IronPDF_Issue
                 {
                     if (name.Equals("cjkTest", StringComparison.OrdinalIgnoreCase)) name = "获得宽恕总是比授权更容易永远不要把无能充分解释的恶意归咎于恶意。";
                     // Inserting byte-order mark before HTML snippet as temporary workaround for IronPDF UTF-16 issue
-                    //return new { name, html = '\ufeff' + GetHtmlQrSnippet(name, height, width, fontSize) };
-                    return new { name, html = GetHtmlQrSnippet(name, height, width, fontSize) };
+                    return new { name, html = '\ufeff' + GetHtmlQrSnippet(name, height, width, fontSize) };
+                    //return new { name, html = GetHtmlQrSnippet(name, height, width, fontSize) };
                 });
 
                 Action<PdfDocument> truncateAfterFirstPage = doc =>
