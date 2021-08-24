@@ -19,10 +19,7 @@ namespace IronPDF_Issue
         {
             // Many CJK characters are words unto themselves; the zero-width word-joiner (aka no-break) character
             // prevents line breaks between words.
-            const string wordJoiner = "\u2060";
-            //const string wordJoiner = "&NoBreak;";
-            //const string wordJoiner = "&#8288;";
-            //const string wordJoiner = "";
+            const string wordJoiner = "\u2060"; // aka "&NoBreak;"
             string noBreakName = string.Join(wordJoiner, name.TextElements());
 
             // Label margin; matches @page-margin variable in qr-label.less
@@ -73,15 +70,13 @@ namespace IronPDF_Issue
                 var snippets = assetNames.Select(name =>
                 {
                     if (name.Equals("cjkTest", StringComparison.OrdinalIgnoreCase)) name = "获得宽恕总是比授权更容易永远不要把无能充分解释的恶意归咎于恶意。";
-                    // Inserting byte-order mark before HTML snippet as temporary workaround for IronPDF UTF-16 issue
-                    return new { name, html = '\ufeff' + GetHtmlQrSnippet(name, height, width, fontSize) };
-                    //return new { name, html = GetHtmlQrSnippet(name, height, width, fontSize) };
+                    // Inserting a meta tag to make the encoding explicit, since the first characters that (might) require interpretation as UTF-16
+                    // appear after more that 65535 characters, the limit for Chromium's encoding-detection logic.
+                    var encodingTag = "<meta charset=\"utf-16\"/>";
+
+                    return new { name, html = encodingTag + GetHtmlQrSnippet(name, height, width, fontSize) };
                 });
 
-                Action<PdfDocument> truncateAfterFirstPage = doc =>
-                {
-                    //if (doc.PageCount > 1) doc.RemovePages(1, doc.PageCount - 1);
-                };
                 var renderer = new ChromePdfRenderer { RenderingOptions = renderOptions };
                 TimeSpan elapsedSoFar = TimeSpan.Zero;
                 stopwatch.Start();
@@ -92,7 +87,6 @@ namespace IronPDF_Issue
                         if (qrLabelDoc == null)
                         {
                             qrLabelDoc = await renderer.RenderHtmlAsPdfAsync(snippet.html);
-                            truncateAfterFirstPage(qrLabelDoc);
                             elapsedSoFar = stopwatch.Elapsed;
                             Console.WriteLine($"First page render: {elapsedSoFar.TotalSeconds:F3}");
                         }
@@ -101,7 +95,6 @@ namespace IronPDF_Issue
                             {
                                 TimeSpan nextPageRender = stopwatch.Elapsed;
                                 Console.WriteLine($" Next page render: {(nextPageRender - elapsedSoFar).TotalSeconds:F3}");
-                                truncateAfterFirstPage(oneLabel);
                                 qrLabelDoc.AppendPdf(oneLabel);
                                 TimeSpan nextPageAppend = stopwatch.Elapsed;
                                 Console.WriteLine($" Next page append: {(nextPageAppend - nextPageRender).TotalSeconds:F3}");

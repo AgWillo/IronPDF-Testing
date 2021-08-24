@@ -2,7 +2,7 @@
   "profiles": {
     "IronPDF Issue": {
       "commandName": "Project",
-      "commandLineArgs": "2 5"
+      "commandLineArgs": "qr.pdf 3 3 12 fred,cjktest"
     }
   }
 }
