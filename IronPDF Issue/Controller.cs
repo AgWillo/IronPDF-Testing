@@ -32,7 +32,8 @@ namespace IronPDF_Issue
             // The calculation here ensures that the height of the QR region is calculated with that line height in mind.
             double qrHeight = height - (2 * pageMargin) - (fontSize * 1.05 / 72); // fontSize is in points; dividing by 72 converts to inches.
 
-            return $@"<div class='qr-label col-md-10'>
+            var html =  $@"<meta charset='utf-8'/>
+                      <div class='qr-label col-md-10'>
                         <div id='qrcontainer' class='qr-container' style='font-size:{fontSize}pt; height:{height}in; width:{width}in;'>
                           <div id='qrwrapper' class='qr-wrapper' style='height: {qrHeight}in;'>
                             {QRGenerator.GenerateSvg(name)}
@@ -41,7 +42,8 @@ namespace IronPDF_Issue
                             <div>{noBreakName}</div>
                           </div>
                         </div>
-                    </div>";
+                    </div>".Replace("\"", "'");
+            return html;
         }
 
         /// <summary>
@@ -74,7 +76,7 @@ namespace IronPDF_Issue
                 {
                     if (name.Equals("cjkTest", StringComparison.OrdinalIgnoreCase)) name = "获得宽恕总是比授权更容易永远不要把无能充分解释的恶意归咎于恶意。";
                     // Inserting byte-order mark before HTML snippet as temporary workaround for IronPDF UTF-16 issue
-                    return new { name, html = '\ufeff' + GetHtmlQrSnippet(name, height, width, fontSize) };
+                    return new { name, html = GetHtmlQrSnippet(name, height, width, fontSize) };
                     //return new { name, html = GetHtmlQrSnippet(name, height, width, fontSize) };
                 });
 
